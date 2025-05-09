@@ -1,3 +1,4 @@
+import { toSimplified } from "./lib/t2s.js";
 import { chineseVoice } from "./voice.js";
 
 export class Story {
@@ -46,7 +47,8 @@ export class Cursor {
   }
 }
 export class StoryStateMgr {
-  constructor(storyCard) {
+  constructor(storyCard, useSimplified = true) {
+    this.useSimplified = useSimplified;
     this.storyCard = storyCard;
     this.isBusyReading = false;
     this.stories = [];
@@ -68,6 +70,9 @@ export class StoryStateMgr {
         new RegExp(`$\b{mapping.old}\b`, "i")
         text = text.replaceAll(mapping.old, mapping.new);
       });
+      if (this.useSimplified) {
+        text = toSimplified(text);
+      }
       return text;
     }
     this.stories = arrayOfText.map(text => new Story(replaceFunc(text)));

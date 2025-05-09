@@ -18,6 +18,7 @@ function main() {
   let readSentence = false;
   let shuffleStories = false;
   let startIndex = 0;
+  let useSimplified = true;
   paramsMap.forEach((value, key) => {
     const possName = sanitizeName(value);
     if (!possName || !key) {
@@ -34,9 +35,11 @@ function main() {
     }
     if (key === 'use_hk') {
       dialect = 'HK';
+      useSimplified = false;
     }
     if (key === 'use_tw') {
       dialect = 'TW';
+      useSimplified = false;
     }
     if (key === 'start_index') {
       const possibleInt = parseInt(value);
@@ -57,7 +60,7 @@ function main() {
   });
   const storyCard = new StoryCard();
   document.body.appendChild(storyCard);
-  const storyStateMgr = new StoryStateMgr(storyCard);
+  const storyStateMgr = new StoryStateMgr(storyCard, useSimplified);
 
   let storiesClone = [...stories];
   if (startIndex) {
