@@ -1,0 +1,4 @@
+[
+  "Implement a shortcut to move back to the previous word if left arrow is pressed",
+  "this.wordIndex does exist. Do it similar to moveToNextWord"
+]
